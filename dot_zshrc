@@ -169,7 +169,7 @@ alias wifi-connect="nmcli device wifi connect"
 alias keyboard-flash="sudo sleep 1; cd ~/pocket-reform/pocket-reform-keyboard-fw/pocket-hid; ./build.sh;echo \"flashing in 10s\";sleep 7; echo \"flashing in 3s\"; sleep 4;sudo picotool load build/pocket-hid.uf2 -f"
 alias clock="~/.cargo/bin/tenki --mode snow -l 1000 --wind disable"
 alias moon="curl \"wttr.in/moon?Fun\""
-alias chezpush="~/.config/chezpush.sh"
+alias chezpush="~/bin/chezpush.sh"
 
 if [[ $1 == eval ]]
 then

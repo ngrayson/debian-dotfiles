@@ -1,0 +1,90 @@
+* {
+	font-size: 20px;
+	/* font-family: IosevkaTermSlab NFM; */
+	font-family: fantasy;
+	font-weight: 600;
+	/* border-radius: 0; */
+	/* color: #32d8bc; */
+}
+
+window#waybar {
+	background: #050c08;
+	color: #32d8bc;
+	border-bottom: #32d8bc;
+	border-width: 2px;
+	border-bottom-width: 2px;
+}
+
+widget label,
+.text-button {
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+/* compat with other waybar versions that don't use buttons */
+.horizontal label {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+#tray {
+	color: #32d8bc;
+	/* background: #32d8bc; */
+	padding-right: 8px;
+	padding-left: 8px;
+	border-radius: 19px;
+	border-width: 2px;
+	border-color: blueviolet;
+}
+
+button:hover {
+	box-shadow: inherit;
+	text-shadow: inherit;
+	background: #163f27;
+	/* color: #32d8bc; */
+	border: none;
+}
+
+button {
+	color: #32d8bc;
+	font-size: 14px;
+	border: none;
+}
+
+#battery span {
+	font-family: 'FontAwesome';
+	font-size: 36px; /* only the icon grows */
+}
+
+#clock,
+#cpu,
+#memory,
+#mode,
+#idle_inhibitor,
+#window,
+#pulseaudio,
+#workspaces {
+	color: #32d8bc;
+}
+
+button.focused {
+	background: #32d8bc;
+	color: #020000;
+	border: none;
+}
+
+button.active {
+	background: #32d8bc;
+	color: #020000;
+	border: none;
+}
+
+button.minimized {
+	background: #020000;
+	/* color: #32d8bc; */
+	opacity: 0.25;
+	border: none;
+}
+

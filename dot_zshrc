@@ -152,15 +152,15 @@ export NVM_DIR="$HOME/.nvm"
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="chezmoi edit ~/.zshrc"
-alias termconfig="chezmoi edit ~/.config/wezterm/wezterm.lua"
-alias swayconfig="chezmoi edit ~/.config/sway/config"
-alias logonconfig="chezmoi edit ~/.config/logon.sh"
+alias zshconfig="chezmoi edit ~/.zshrc && chezmoi apply"
+alias termconfig="chezmoi edit ~/.config/wezterm/wezterm.lua && chezmoi apply"
+alias swayconfig="chezmoi edit ~/.config/sway/config && chezmoi apply"
+alias logonconfig="chezmoi edit ~/.config/logon.sh && chezmoi apply"
+alias ohmyzshconfig="chezmoi edit ~/.oh-my-zsh && chezmoi apply"
 alias logon="~/.config/logon.sh"
 alias obsidian="~/Apps/Obsidian &"
 alias gimp="~/Apps/GIMP &"
 alias notes="obsidian"
-alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias ll="ls -ll"
 alias fetch="fastfetch"
 alias wifi-list="nmcli device wifi list"
@@ -169,7 +169,7 @@ alias wifi-connect="nmcli device wifi connect"
 alias keyboard-flash="sudo sleep 1; cd ~/pocket-reform/pocket-reform-keyboard-fw/pocket-hid; ./build.sh;echo \"flashing in 10s\";sleep 7; echo \"flashing in 3s\"; sleep 4;sudo picotool load build/pocket-hid.uf2 -f"
 alias clock="~/.cargo/bin/tenki --mode snow -l 1000 --wind disable"
 alias moon="curl \"wttr.in/moon?Fun\""
-alias chezpush="wezterm -e zsh -is eval 'chezmoi diff && sleep 2 && chezmoi apply && cd ~/.local/share/chezmoi && git add . && git commit && echo "finished" && exit'&"
+alias chezpush="~/.config/chezpush.sh"
 
 if [[ $1 == eval ]]
 then

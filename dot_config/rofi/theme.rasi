@@ -107,16 +107,16 @@ window {
     children: [ hbox ];
     width: 60%;
     height: 80%;
-    border: 3;
-    padding: 0px ;
+    padding: 10px ;
     spacing: 0px ;
-    border-color: var(border-color);
+    background-color: var(lightbg);
 }
 
 hbox {
     orientation: horizontal;
     children: [sidebar2, mainbox ];
-    border: 0;
+    border: 3;
+    border-color: var(border-color);
 }
 
 sidebar2 {

@@ -132,7 +132,7 @@ imagebox {
     expand: false;
     filename: "home/wiz/.config/wizterm-2.gif";
     padding: 480 93;
-    background-image: url("/home/wiz/Downloads/drun.png",width);
+    background-image: url("/home/wiz/.config/drun.png",width);
     // background-image: url("/home/wiz/.config/polaroid.png",width);
 }
 

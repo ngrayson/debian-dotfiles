@@ -3,7 +3,7 @@ configuration {
         font: "IosevkaTermSlab NFM 20";
 /*      location: 0;*/
 /*      yoffset: 0;*/
-        xoffset: 0;
+        xoffset: 300;
 /*      fixed-num-lines: true;*/
       show-icons: true;
 /*      terminal: "rofi-sensible-terminal";*/

@@ -93,16 +93,56 @@ element-icon {
     text-color:       inherit;
     padding:          var(spacing);
 }
+
+
+/* old  version
 window {
     padding:          var(spacing);
     background-color: var(background);
     border:           3;
     children: [mainbox];
 }
+*/
+
 mainbox {
     padding: 0;
     border:  0;
+    spacing:          20;
+
+    children: [inputbar, listview];
 }
+
+window {
+    children: [ hbox ];
+    width: 60%;
+}
+
+hbox {
+    orientation: horizontal;
+    children: [sidebar2, mainbox ];
+}
+
+sidebar2 {
+    expand: false;
+    background-color: transparent;
+    border: 0;
+    padding: 0 20;
+    spacing: 20;
+    children: [imagebox, dummy ];
+}
+
+imagebox {
+    //background-color: transparent;
+    expand: false;
+    filename: "home/wiz/.config/wizterm-2.gif";
+    padding: 100px;
+    background-image: url("/home/wiz/.config/polaroid.png",width);
+}
+
+dummy{
+    background-color:            transparent;
+}
+
 message {
     padding:      1px ;
     border-color: var(separatorcolor);
@@ -118,6 +158,9 @@ listview {
     spacing:      2px ;
     fixed-height: 0;
     border:       2px dash 0px 0px ;
+
+    background-color: var(background);
+    border:           3;
 }
 scrollbar {
     width:        4px ;
@@ -158,6 +201,9 @@ inputbar {
     text-color: var(normal-foreground);
     children:   [ "entry","num-filtered-rows","textbox-num-sep","num-rows","case-indicator" ];
     background-color: transparent;
+
+    background-color: var(background);
+    border:           3;
 }
 case-indicator {
     spacing:    0;

@@ -150,14 +150,21 @@ export NVM_DIR="$HOME/.nvm"
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
+
+
+## aliases
+# config aliases
+alias config="code ~/.local/share/chezmoi; chezmoi apply"
 alias zshconfig="chezmoi edit ~/.zshrc && chezmoi apply"
 alias termconfig="chezmoi edit ~/.config/wezterm/wezterm.lua && chezmoi apply"
 alias swayconfig="chezmoi edit ~/.config/sway/config && chezmoi apply"
 alias logonconfig="chezmoi edit ~/.config/logon.sh && chezmoi apply"
 alias ohmyzshconfig="chezmoi edit ~/.oh-my-zsh && chezmoi apply"
+
+# logon script alias
 alias logon="~/.config/logon.sh"
+
+# app aliases
 alias obsidian="~/Apps/Obsidian &"
 alias gimp="~/Apps/GIMP &"
 alias notes="obsidian"

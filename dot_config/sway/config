@@ -76,7 +76,7 @@ exec swayidle -w \
 # Borders and Fonts #
 #####################
 
-default_border pixel 1
+default_border pixel 3
 font IosevkaTermSlab NFM:monospace 0.01
 titlebar_border_thickness 2
 gaps inner 6

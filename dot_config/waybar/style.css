@@ -73,8 +73,8 @@ button {
   padding: 0.3rem 0.6rem;
   margin: 0.4rem 0.25rem;
   border-radius: 6px;
-  background-color: #1a1a1f;
-  color: #f9e2af;
+  background-color: #050c08;
+  color: #32d8bc;
 }
 
 button.focused {

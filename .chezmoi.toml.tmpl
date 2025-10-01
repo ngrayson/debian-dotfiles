@@ -1,0 +1,38 @@
+# Chezmoi configuration template
+# This file will be customized for each machine
+
+[data]
+    # Machine identification
+    machine = "{{ .chezmoi.hostname }}"
+    os = "{{ .chezmoi.os }}"
+    arch = "{{ .chezmoi.arch }}"
+    
+    # Machine-specific settings
+    {{ if eq .chezmoi.os "linux" }}
+    # Linux-specific settings
+    terminal = "wezterm"
+    shell = "zsh"
+    wm = "sway"
+    editor = "micro"
+    {{ else if eq .chezmoi.os "windows" }}
+    # Windows-specific settings
+    terminal = "wt"
+    shell = "powershell"
+    wm = "none"
+    editor = "code"
+    {{ end }}
+    
+    # User preferences
+    username = "{{ .chezmoi.username }}"
+    email = "{{ if eq .chezmoi.hostname "gnomon" }}linux@example.com{{ else }}windows@example.com{{ end }}"
+    
+    # Paths
+    {{ if eq .chezmoi.os "linux" }}
+    config_dir = "{{ .chezmoi.homeDir }}/.config"
+    {{ else if eq .chezmoi.os "windows" }}
+    config_dir = "{{ .chezmoi.homeDir }}/AppData/Roaming"
+    {{ end }}
+
+[git]
+    autocommit = true
+    autopush = true

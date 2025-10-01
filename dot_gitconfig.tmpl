@@ -1,0 +1,31 @@
+[user]
+    name = {{ .username }}
+    email = {{ .email }}
+
+[core]
+    editor = {{ .editor }}
+    {{ if eq .chezmoi.os "linux" }}
+    autocrlf = input
+    {{ else if eq .chezmoi.os "windows" }}
+    autocrlf = true
+    {{ end }}
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[push]
+    default = simple
+
+{{ if eq .chezmoi.os "linux" }}
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = !gitk
+{{ end }}

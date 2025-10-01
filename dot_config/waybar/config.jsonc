@@ -16,7 +16,7 @@
 		"on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
 	},
 	"custom/weather": {
-  "exec": "/path/to/outside -o waybar -s",
+  "exec": "$HOME/.cargo/bin/outside -o waybar -s",
   "format": "{text}",
   "tooltip": true,
   "return-type": "json",

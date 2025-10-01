@@ -69,6 +69,14 @@ button {
 	color: #32d8bc;
 }
 
+#custom-weather {
+  padding: 0.3rem 0.6rem;
+  margin: 0.4rem 0.25rem;
+  border-radius: 6px;
+  background-color: #1a1a1f;
+  color: #f9e2af;
+}
+
 button.focused {
 	background: #32d8bc;
 	color: #020000;

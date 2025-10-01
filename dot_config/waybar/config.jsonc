@@ -8,12 +8,18 @@
 		"sway/workspaces"
 	],
 	"modules-center": [],
-	"modules-right": ["tray", "battery", "clock"],
+	"modules-right": ["custom/weather","tray", "battery", "clock"],
 	"custom/run": {
 		"format": "<span face='MNTIcons'>M</span>",
 		"exec": "printf 'M\nApplications\n'",
 		"interval": 3600,
 		"on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
+	},
+	"custom/weather": {
+  "exec": "/path/to/outside -o waybar -s",
+  "format": "{text}",
+  "tooltip": true,
+  "return-type": "json",
 	},
 	"sway/window": {},
 	"wlr/taskbar": {

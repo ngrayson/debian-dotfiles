@@ -95,7 +95,7 @@ smart_borders on
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    bindsym $mod+Shift+Return exec $term -e zsh -is btm &
+    bindsym $mod+Shift+Return exec $term -e zsh -is eval 'fetch' &
     bindsym $mod+Shift+s exec grim ~/Pictures/$(date +'screenshot-%Y-%m-%d-%H-%M-%S').png
     bindsym $mod+Shift+x exec grim -g "$(slurp)" ~/Pictures/$(date +'screenshot-%Y-%m-%d-%H-%M-%S').png
     bindsym $mod+Shift+v exec pavucontrol

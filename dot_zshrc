@@ -179,6 +179,7 @@ alias clock="~/.cargo/bin/tenki --mode snow -l 1000 --wind disable"
 alias moon="curl \"wttr.in/moon?Fun\""
 alias weather="curl \"wttr.in/kirkland?FunQ2\""
 alias chezpush="~/bin/chezpush.sh"
+alias ai="cd $HOME/Agent && cursor-agent --resume"
 
 if [[ $1 == eval ]]
 then

@@ -16,13 +16,13 @@ kitty -e zsh -is eval 'sleep 1 && btm'&
 sleep 1.000
 
 swaymsg "[con_mark="zsh"]" focus 
-swaymsg resize set width 605px
+swaymsg resize set width 400px
 swaymsg splitv
 
 kitty -e zsh -is eval 'sleep 0.6 && clock'&
 sleep 1.000
 swaymsg move up
-swaymsg resize set height 290px
+swaymsg resize set height 160px
 
 swaymsg "[con_mark="zsh"]" focus 
 

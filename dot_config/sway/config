@@ -22,7 +22,7 @@ set $right right
 # Your preferred terminal emulator. You can change it by running:
 # sudo update-alternatives --config x-terminal-emulator
 # set $term wezterm flatpak run org.wezfurlong.wezterm
-set $term wezterm
+set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
@@ -42,7 +42,7 @@ set $BROWSER firefox
 
 # display config for MNT Pocket Reform
 output DSI-1 transform 270
-output DSI-1 scale 1
+output DSI-1 scale 1.5
 
 ### Idle configuration
 #

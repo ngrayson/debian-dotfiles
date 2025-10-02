@@ -13,7 +13,8 @@ config.line_height = 1.05
 config.enable_tab_bar = false
 config.use_fancy_tab_bar = false
 config.enable_scroll_bar = false
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.90
+-- config.kde_window_background_blur = true
 config.window_close_confirmation = "NeverPrompt"
 config.enable_wayland = true
 

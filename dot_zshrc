@@ -183,6 +183,9 @@ alias agent="cd ~/Agent && cursor-agent --resume"
 alias sagent="cd ~/Agent && sudo cursor-agent --resume"
 alias agent-new="cd ~/Agent && cursor-agent"
 
+# VPN aliases
+alias vpn-canada="echo -e 'TechnoWizard\nqdlTA#KP@&17' | sudo openvpn --config ~/.config/open-vpn/Canada\ -\ West.ovpn --auth-user-pass /dev/stdin"
+
 
 if [[ $1 == eval ]]
 then

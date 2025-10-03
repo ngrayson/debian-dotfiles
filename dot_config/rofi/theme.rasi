@@ -41,7 +41,7 @@
 element {
     padding: 0px ;
     cursor:  pointer;
-    spacing: 10px ;
+    spacing: 7px ;
     border:  0;               
     orientation: horizontal;
     children: [element-icon, element-text];
@@ -105,8 +105,8 @@ mainbox {
 
 window {
     children: [ hbox ];
-    width: 60%;
-    height: 80%;
+    width: 40%;
+    height: 53%;
     padding: 10px ;
     spacing: 0px ;
     background-color: var(lightbg);
@@ -131,7 +131,7 @@ imagebox {
     //background-color: transparent;
     expand: false;
     filename: "home/wiz/.config/wizterm-2.gif";
-    padding: 480 93;
+    padding: 317 61;
     background-image: url("/home/wiz/.config/drun.png",width);
     // background-image: url("/home/wiz/.config/polaroid.png",width);
 }
@@ -152,13 +152,13 @@ textbox {
     text-color: var(foreground);
 }
 listview {
-    padding:      5;
+    padding:      3;
     scrollbar:    true;
     spacing:      2px ;
     fixed-height: 0;
 }
 scrollbar {
-    width:        4px ;
+    width:        3px ;
     padding:      0;
     handle-width: 8px ;
     border:       0;

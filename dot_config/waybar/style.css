@@ -67,6 +67,7 @@ button {
 #pulseaudio,
 #workspaces {
 	color: #32d8bc;
+	padding: 4px;
 }
 
 #custom-weather {

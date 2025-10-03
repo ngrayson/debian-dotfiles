@@ -4,10 +4,12 @@
 	"height": 24, // Waybar height (to be removed for auto height)
 	"modules-left": [
 		"custom/run",
-		// "wlr/taskbar",
 		"sway/workspaces"
 	],
-	"modules-center": [],
+	"modules-center": [
+		// "wlr/taskbar"
+		"sway/window"
+	],
 	"modules-right": ["custom/weather","tray", "battery", "clock"],
 	"custom/run": {
 		"format": "<span face='MNTIcons'>M</span>",

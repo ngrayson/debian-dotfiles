@@ -1,6 +1,6 @@
 configuration {
         modes: "window,drun,run,ssh,filebrowser";
-        font: "IosevkaTermSlab NFM 13";
+        font: "IosevkaTermSlab NFM 14";
 /*      location: 0;*/
 /*      yoffset: 0;*/
         xoffset: 300;

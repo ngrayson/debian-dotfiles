@@ -1,7 +1,7 @@
 {
 	// "layer": "top", // Waybar at top layer
 	// "position": "bottom", // Waybar position (top|bottom|left|right)
-	"height": 32, // Waybar height (to be removed for auto height)
+	"height": 24, // Waybar height (to be removed for auto height)
 	"modules-left": [
 		"custom/run",
 		// "wlr/taskbar",

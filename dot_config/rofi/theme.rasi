@@ -16,7 +16,7 @@
     //gradient:                  linear-gradient(0 var(green), 1, var(background));
     image:                       url("~/.config/wizterm-2.gif",width);
     spacing:                     2;
-    padding:                     10;
+    padding:                     7;
     separator-color:             var(darkgreen);
     border-color:                var(green);
     normal-foreground:           var(foreground);
@@ -105,8 +105,8 @@ mainbox {
 
 window {
     children: [ hbox ];
-    width: 40%;
-    height: 53%;
+    width: 50%;
+    height: 60%;
     padding: 10px ;
     spacing: 0px ;
     background-color: var(lightbg);
@@ -131,7 +131,7 @@ imagebox {
     //background-color: transparent;
     expand: false;
     filename: "home/wiz/.config/wizterm-2.gif";
-    padding: 317 61;
+    padding: 320 42;
     background-image: url("/home/wiz/.config/drun.png",width);
     // background-image: url("/home/wiz/.config/polaroid.png",width);
 }

@@ -1,9 +1,9 @@
 # ~/.profile or sway config exec lines
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5   # Adjust for your screen
-export QT_SCALE_FACTOR=2
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export QT_FONT_DPI=192
+# export GDK_SCALE=2
+# export GDK_DPI_SCALE=0.5   # Adjust for your screen
+# export QT_SCALE_FACTOR=2
+# export QT_AUTO_SCREEN_SCALE_FACTOR=0
+# export QT_FONT_DPI=192
 
 #wait for waybar to finish loading
 sleep 2

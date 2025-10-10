@@ -4,13 +4,19 @@
 	"height": 24, // Waybar height (to be removed for auto height)
 	"modules-left": [
 		"custom/run",
-		"sway/workspaces"
+		"sway/workspaces",
+		"custom/audio_idle_inhibitor"
 	],
 	"modules-center": [
 		// "wlr/taskbar"
 		"sway/window"
 	],
-	"modules-right": ["custom/weather","tray", "battery", "clock"],
+	"modules-right": [
+		"custom/weather",
+		"tray", 
+		"battery", 
+		"clock"
+	],
 	"custom/run": {
 		"format": "<span face='MNTIcons'>M</span>",
 		"exec": "printf 'M\nApplications\n'",
@@ -21,7 +27,7 @@
   "exec": "$HOME/.cargo/bin/outside -o waybar -s",
   "format": "{text}",
   "tooltip": true,
-  "return-type": "json",
+  "return-type": "json"
 	},
 	"sway/window": {},
 	"wlr/taskbar": {
@@ -35,6 +41,18 @@
 		"icon-size": 20,
 		"spacing": 16
 		// "icon-color": "#32d8bc"
+	},
+	"custom/audio_idle_inhibitor": {
+		"format": "{icon}",
+		"exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+		"exec-if": "which sway-audio-idle-inhibit",
+		"return-type": "json",
+		"format-icons": {
+			"output": "",
+			"input": "",
+			"output-input": "  ",
+			"none": ""
+		}
 	},
 	"clock": {
 		"tooltip-format": "{:%Y %B}",

@@ -1,4 +1,4 @@
-swaylock -f -c 050c08 -d \
+ swaylock -f -c 050c08 -d \
  --font "IosevkaTermSlab NFM" \
  --font-size 60 \
  --indicator-radius 200 \
@@ -11,7 +11,7 @@ swaylock -f -c 050c08 -d \
  --text-color 050c08 \
  --inside-clear-color 4d5f55cc \
  --ring-clear-color 4d5f5500 \
- --text-clear-color 08af8b \
+ --text-clear-color 050c08 \
  --inside-ver-color 08af8bcc \
  --ring-ver-color 050c0800 \
  --text-ver-color 050c08 \
@@ -21,6 +21,7 @@ swaylock -f -c 050c08 -d \
  --line-caps-lock-color 58709b \
  --text-caps-lock-color 58709b \
  -i ~/.config/seadream-burst-1200-1920.png \
+ --ignore-empty-password \
 #  --inside-caps-lock-color 00000000 \
   # --ring-caps-lock-color 00000000 \
  

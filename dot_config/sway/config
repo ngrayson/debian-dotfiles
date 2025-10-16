@@ -115,7 +115,7 @@ smart_borders on
     # programs
     bindsym $mod+o exec ~/Apps/Obsidian
     bindsym $mod+b exec $BROWSER
-    bindsym $mod+s exec legcord
+    bindsym $mod+d exec legcord
     bindsym $mod+l exec ~/bin/lock.sh
     
 

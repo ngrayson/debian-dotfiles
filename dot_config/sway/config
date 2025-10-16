@@ -109,14 +109,14 @@ smart_borders on
     bindsym --border button3 kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
     bindsym $mod+Tab exec $menu
     bindsym $mod+t exec thunar
 
     # programs
     bindsym $mod+o exec ~/Apps/Obsidian
     bindsym $mod+b exec $BROWSER
-    bindsym $mod+l exec legcord
+    bindsym $mod+s exec legcord
+    bindsym $mod+l exec ~/bin/lock.sh
     
 
 

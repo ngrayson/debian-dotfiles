@@ -51,7 +51,8 @@
 		// "title",
 		// "separator",
 		{ "type": "os", "key": "SYS", "format": "{10}" },
-		{ "type": "host", "key": "HST", "format": "MNT Pocket" },
+		// "host",
+		{ "type": "host", "key": "HST", "format": "MNT Pocket RK3588" },
 		// "kernel",
 
 		{ "type": "uptime", "key": "UPT", "format": "{days}d {hours}h {minutes}m" },

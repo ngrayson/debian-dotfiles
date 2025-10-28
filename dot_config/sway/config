@@ -288,6 +288,7 @@ font pango: Inter, Icons Medium 11
 #}
 
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="/home/wiz/Documents/pixelcomposer/test.pxc - Pixel Composer"] floating enable
 
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway

@@ -1,0 +1,3 @@
+#!/bin/bash
+export PATH="/home/wiz/.local/bin:/home/wiz/.cargo/bin:/usr/local/bin:/usr/bin:/home/wiz/bin"
+pkill -x rofi || rofi -show combi -no-lazy-grab

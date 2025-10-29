@@ -1,0 +1,14 @@
+#!/bin/bash
+# Rofi search script for DuckDuckGo
+
+# Get search query from rofi
+query=$(echo "" | rofi -dmenu -p "Search DuckDuckGo")
+
+# Exit if no query entered
+if [ -z "$query" ]; then
+    exit 0
+fi
+
+# URL encode the query and open in Firefox
+encoded_query=$(echo "$query" | sed 's/ /+/g')
+firefox "https://duckduckgo.com/?q=$encoded_query"

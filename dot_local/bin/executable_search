@@ -1,0 +1,14 @@
+#!/bin/bash
+## Simple bash script to perform DuckDuckGo search from rofi
+
+query=""
+
+for word in "$@"
+do
+  query+="$word+"
+done
+
+# Remove trailing +
+query="${query%?}"
+
+firefox "https://www.duckduckgo.com?q=$query"

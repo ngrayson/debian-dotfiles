@@ -26,7 +26,7 @@ set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu pkill -x rofi || rofi -show combi -modes combi -combi-modes "window,drun,run,dmenu,bookmarks:rofi-bookmarks.py" -theme ~/.config/rofi/theme.rasi
+set $menu pkill -x rofi || rofi -show combi -modes combi -combi-modes "window,drun,run,dmenu,bookmarks:/home/wiz/.local/bin/rofi-bookmarks.py" -theme ~/.config/rofi/theme.rasi
 set $BROWSER firefox
 
 #xwayland disable

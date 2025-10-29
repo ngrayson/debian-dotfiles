@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Search
+Comment=Search DuckDuckGo via rofi
+Exec=/home/wiz/.local/bin/rofi-google
+Icon=duckduckgo
+Terminal=false
+Categories=Network;WebBrowser;
+Keywords=search;duckduckgo;ddg;web;find;

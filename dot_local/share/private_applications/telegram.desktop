@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Telegram
+Comment=Telegram messenger in terminal
+Exec=kitty -e tg
+Icon=telegram
+Terminal=false
+Categories=Network;InstantMessaging;
+Keywords=tg;telegram;chat;messaging;

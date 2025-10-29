@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox Bookmarks
+Comment=Browse and open Firefox bookmarks
+Exec=rofi -show bookmarks -modi 'bookmarks:/home/wiz/.local/bin/rofi-bookmarks.py'
+Icon=firefox
+Terminal=false
+Categories=Network;WebBrowser;
+Keywords=firefox;bookmarks;browser;web;favorites;

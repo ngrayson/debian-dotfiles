@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Outside
+Comment=Check outside conditions
+Exec=kitty -e outside
+Icon=weather-clear
+Terminal=false
+Categories=Utility;
+Keywords=outside;weather;conditions;

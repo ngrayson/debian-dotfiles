@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Weather
+Comment=Check weather forecast
+Exec=kitty -e bash -c "curl wttr.in; read -p 'Press Enter to close...'"
+Icon=weather-few-clouds
+Terminal=false
+Categories=Utility;
+Keywords=weather;forecast;temperature;climate;wttr;

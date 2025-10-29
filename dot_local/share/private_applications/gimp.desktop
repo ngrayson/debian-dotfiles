@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=GIMP
+Comment=GNU Image Manipulation Program
+Exec=gimp
+Icon=gimp
+Terminal=false
+Categories=Graphics;2DGraphics;RasterGraphics;
+Keywords=gimp;image;photo;editor;graphics;picture;

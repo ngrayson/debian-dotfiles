@@ -1,5 +1,8 @@
+@theme "~/.config/rofi/theme.rasi"
+
 configuration {
-        modes: "window,drun,run,ssh,filebrowser";
+        modes: "combi,window,drun,run,ssh,filebrowser";
+        combi-modes: "window,drun,run,bookmarks:/home/wiz/.local/bin/rofi-bookmarks.py,search:/home/wiz/.local/bin/rofi-google";
         font: "IosevkaTermSlab NFM 14";
 /*      location: 0;*/
 /*      yoffset: 0;*/

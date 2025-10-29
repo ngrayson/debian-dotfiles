@@ -26,10 +26,13 @@ set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu pkill -x rofi || rofi -show combi
+set $menu /home/wiz/.local/bin/launch-rofi
 set $BROWSER firefox
 
 #xwayland disable
+
+# Import environment variables (including PATH) to systemd user manager
+exec systemctl --user import-environment PATH
 
 ### Output configuration
 #

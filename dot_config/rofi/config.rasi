@@ -2,7 +2,7 @@
 
 configuration {
         modes: "combi,window,drun,run,ssh,filebrowser";
-        combi-modes: "window,drun,run,bookmarks:/home/wiz/.local/bin/rofi-bookmarks.py,search:/home/wiz/.local/bin/rofi-google";
+        combi-modes: "drun,run,bookmarks:/home/wiz/.local/bin/rofi-bookmarks.py";
         font: "IosevkaTermSlab NFM 14";
 /*      location: 0;*/
 /*      yoffset: 0;*/

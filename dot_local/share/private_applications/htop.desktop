@@ -2,8 +2,8 @@
 Type=Application
 Name=System Resources
 Comment=View system processes and resources
-Exec=kitty -e htop
+Exec=kitty -e btop
 Icon=utilities-system-monitor
 Terminal=false
 Categories=System;Monitor;
-Keywords=htop;resources;system;monitor;processes;cpu;memory;ram;top;
+Keywords=btop;htop;resources;system;monitor;processes;cpu;memory;ram;top;

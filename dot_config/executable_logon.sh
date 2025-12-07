@@ -23,6 +23,8 @@ kitty -e zsh -is eval 'sleep 0.6 && clock'&
 sleep 1.000
 swaymsg move up
 swaymsg resize set height 160px
+swaymsg splith
+
 
 swaymsg "[con_mark="zsh"]" focus 
 

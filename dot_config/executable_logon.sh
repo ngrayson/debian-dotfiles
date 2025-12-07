@@ -6,25 +6,26 @@
 # export QT_FONT_DPI=192
 
 #wait for waybar to finish loading
-sleep 2
+sleep 1
 
-kitty -e zsh -is eval 'sleep 1.9 && fetch'&
-sleep 1.000
-swaymsg mark zsh
-
-kitty -e zsh -is eval 'sleep 1 && btm'&
-sleep 1.000
-
-swaymsg "[con_mark="zsh"]" focus 
-swaymsg resize set width 400px
-swaymsg splitv
-
-kitty -e zsh -is eval 'sleep 0.6 && clock'&
-sleep 1.000
-swaymsg move up
-swaymsg resize set height 160px
 swaymsg splith
 
+kitty -e zsh -is eval 'sleep 1 && fetch'&
+sleep 0.100
 
-swaymsg "[con_mark="zsh"]" focus 
 
+kitty -e zsh -is eval 'sleep 1 && btm'&
+sleep 0.100
+
+
+## swaymsg "[con_mark="zsh"]" focus 
+sleep 2.400
+swaymsg move right
+swaymsg focus left
+swaymsg resize set width 400px
+swaymsg splitv
+#
+kitty -e zsh -is eval 'sleep 0.6 && clock'&
+sleep 2.400
+swaymsg move up
+swaymsg resize set height 160px

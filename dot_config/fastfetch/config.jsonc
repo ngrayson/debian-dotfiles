@@ -1,128 +1,156 @@
 {
-	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-	"logo": {
-		"type": "kitty-icat",
-		// "type": "none",
-		"source": "~/.config/wizterm-2.gif",
-		// "width": 17,
-		"height": 9,
-		"preserveAspectRatio": true,
-		"padding": {
-			"top": 1,
-			"right": 1,
-			"left": 1
-		},
-		// "type": "small",
-		// "printRemaining": true
-		// "type": "chafa",
-		// "chafa": {
-		// "ditherMode": "ORDERED",
-		// "symbols": "braille",
-		// "fgOnly": true,
-		// "canvasMode": "INDEXED_8"
-		// }
-		// "type": "file-raw"
-	},
-	"display": {
-		"separator": " > ",
-		"color": {
-			"keys": "green",
-			"title": "cyan"
-		},
-		"key": {
-			"width": 5,
-			"type": "string"
-		    // "type": "icon",
-			// "type": "both"
-		},
-		"bar": {
-			"width": 4,
-			"border":{
-				"right": "]",
-				"left": "["
-			}
-		},
-		"disableLinewrap": true,
-		"hideCursor": true,
-		"showErrors": true
-	},
-	"modules": [
-		"break",
-		// "title",
-		// "separator",
-		{ "type": "os", "key": "SYS", "format": "{10}" },
-		// "host",
-		{ "type": "host", "key": "HST", "format": "MNT Pocket RK3588" },
-		// "kernel",
-
-		{ "type": "uptime", "key": "UPT", "format": "{days}d {hours}h {minutes}m" },
-		// "packages",
-		{ "type": "shell", "key": "SHL" },
-		{ "type": "terminal", "key": "TRM", "format": "{1}" },
-		// "display",
-		// "de",
-		// "wm",
-		// "wmtheme",
-		// "theme",
-		// "icons",
-		// "font",
-		// "cursor",
-		// "terminalfont",
-		// { "type": "cpu", "key": "CPU", "format": "{1} {2}" },
-		// { "type": "gpu", "format": "{1} {2}" },
-		{
-			"type": "memory",
-			"key": "MEM",
-			"percent": {
-				"type": ["num", "bar"]
-			},
-
-			"format": "{percentage-bar} {total}"
-			// "format": "{percentage-bar} [{percentage}] {total}"
-		},
-		// {
-		// 	"type": "disk",
-		// 	"key": "DSK",
-		// 	"format": "{size-used}/{size-total}"
-		// },
-		{
-			"key": "DSK",
-			"type": "disk",
-			"format": "{size-percentage-bar} {size-total}",
-			// "format": "{size-percentage-bar} [{size-percentage}] {size-total}",
-			"percent": {
-				"type": ["num", "bar"]
-			}
-		},
-		// "swap",
-		// "disk",
-		// "localip",
-		// {
-		// 	"key": "BAT",
-		// 	"type": "battery",
-		// 	"format": "{status} {time-hours}H {time-minutes}M"
-		// },
-		// {
-		// 	"key": "BAT",
-		// 	"type": "battery",
-		// 	"format": "{capacity-bar} {time-hours}H {time-minutes}M",
-		// 	// "format": "{capacity-bar} [{capacity}] {time-hours}H {time-minutes}M",
-		// 	"percent": {
-		// 		"type": ["num", "bar"]
-		// 	}
-		// },
-		// "battery",
-		// "poweradapter",
-		// "locale",
-		"break",
-		{
-			"type": "colors",
-			// "symbol": "background",
-			"symbol": "block",
-			"paddingLeft": 0,
-			"block": { "width": 3, "range": [1, 7] }
-		},
-		"break"
-	]
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "~/.config/omarchy/branding/about.txt",
+    "color": { "1": "green" },
+    "padding": {
+      "top": 2,
+      "right": 6,
+      "left": 2
+    }
+  },
+  "modules": [
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────Hardware──────────────────────┐"
+    },
+    {
+      "type": "host",
+      "key": " PC",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "│ ├",
+      "showPeCoreCount": true,
+      "keyColor": "green"
+    },
+    {
+      "type": "gpu",
+      "key": "│ ├",
+      "detectionMethod": "pci",
+      "keyColor": "green"
+    },
+    {
+      "type": "display",
+      "key": "│ ├󱄄",
+      "keyColor": "green"
+    },
+    {
+      "type": "disk",
+      "key": "│ ├󰋊",
+      "keyColor": "green"
+    },
+    {
+      "type": "memory",
+      "key": "│ ├",
+      "keyColor": "green"
+    },
+    {
+      "type": "swap",
+      "key": "└ └󰓡 ",
+      "keyColor": "green"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌──────────────────────Software──────────────────────┐"
+    },
+    {
+      "type": "command",
+      "key": "\ue900 OS",
+      "keyColor": "blue",
+      "text": "version=$(omarchy-version); echo \"Omarchy $version\""
+    },
+    {
+      "type": "command",
+      "key": "│ ├󰘬",
+      "keyColor": "blue",
+      "text": "branch=$(omarchy-version-branch); echo \"$branch\""
+    },
+    {
+      "type": "command",
+      "key": "│ ├󰔫",
+      "keyColor": "blue",
+      "text": "channel=$(omarchy-version-channel); echo \"$channel\""
+    },
+    {
+      "type": "kernel",
+      "key": "│ ├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wm",
+      "key": "│ ├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "de",
+      "key": " DE",
+      "keyColor": "blue"
+    },
+    {
+      "type": "terminal",
+      "key": "│ ├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "packages",
+      "key": "│ ├󰏖",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wmtheme",
+      "key": "│ ├󰉼",
+      "keyColor": "blue"
+    },
+    {
+      "type": "command",
+      "key": "│ ├󰸌",
+      "keyColor": "blue",
+      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\""
+    },
+    {
+      "type": "terminalfont",
+      "key": "└ └",
+      "keyColor": "blue"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌────────────────Age / Uptime / Update───────────────┐"
+    },
+    {
+      "type": "command",
+      "key": "󱦟 OS Age",
+      "keyColor": "magenta",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+    },
+    {
+      "type": "uptime",
+      "key": "󱫐 Uptime",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "command",
+      "key": " Update",
+      "keyColor": "magenta",
+      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\""
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+    },
+    "break"
+  ]
 }
-

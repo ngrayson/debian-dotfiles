@@ -1,99 +1,83 @@
+@import "../omarchy/current/theme/waybar.css";
+
 * {
-	font-size: 14px;
-	/* font-family: IosevkaTermSlab NFM; */
-	font-family: fantasy;
-	font-weight: 600;
-	/* border-radius: 0; */
-	/* color: #32d8bc; */
+  background-color: @background;
+  color: @foreground;
+
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: 'JetBrainsMono Nerd Font Mono';
+  font-size: 12px;
 }
 
-window#waybar {
-	background: #050c08;
-	color: #32d8bc;
-	border-bottom: #32d8bc;
-	border-width: 2px;
-	border-bottom-width: 2px;
+.modules-left {
+  margin-left: 8px;
 }
 
-widget label,
-.text-button {
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+.modules-right {
+  margin-right: 8px;
 }
 
-/* compat with other waybar versions that don't use buttons */
-.horizontal label {
-	margin-left: 8px;
-	margin-right: 8px;
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
+}
+
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+#cpu,
+#battery,
+#pulseaudio,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update {
+  min-width: 12px;
+  margin: 0 7.5px;
 }
 
 #tray {
-	color: #32d8bc;
-	/* background: #32d8bc; */
-	padding-right: 8px;
-	padding-left: 8px;
-	border-radius: 19px;
-	border-width: 2px;
-	border-color: blueviolet;
+  margin-right: 16px;
 }
 
-button:hover {
-	box-shadow: inherit;
-	text-shadow: inherit;
-	background: #163f27;
-	/* color: #32d8bc; */
-	border: none;
+#bluetooth {
+  margin-right: 17px;
 }
 
-button {
-	color: #32d8bc;
-	font-size: 14px;
-	border: none;
+#network {
+  margin-right: 13px;
 }
 
-#battery span {
-	font-family: 'FontAwesome';
-	font-size: 36px; /* only the icon grows */
+#custom-expand-icon {
+  margin-right: 18px;
 }
 
-#clock,
-#cpu,
-#memory,
-#mode,
-#idle_inhibitor,
-#window,
-#pulseaudio,
-#workspaces {
-	color: #32d8bc;
-	padding: 4px;
+tooltip {
+  padding: 2px;
 }
 
-#custom-weather {
-  padding: 0.3rem 0.6rem;
-  margin: 0.4rem 0.25rem;
-  border-radius: 6px;
-  background-color: #050c08;
-  color: #32d8bc;
+#custom-update {
+  font-size: 10px;
 }
 
-button.focused {
-	background: #32d8bc;
-	color: #020000;
-	border: none;
+#clock {
+  margin-left: 8.75px;
 }
 
-button.active {
-	background: #32d8bc;
-	color: #020000;
-	border: none;
+.hidden {
+  opacity: 0;
 }
 
-button.minimized {
-	background: #020000;
-	/* color: #32d8bc; */
-	opacity: 0.25;
-	border: none;
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  margin-left: 8.75px;
+  font-size: 10px;
 }
 
+#custom-screenrecording-indicator.active {
+  color: #a55555;
+}

@@ -3,22 +3,16 @@
   "layer": "top",
   "position": "top",
   "spacing": 0,
-  "height": 26,
-  "modules-left": ["custom/omarchy", "hyprland/workspaces"],
-  "modules-center": ["clock", "custom/update", "custom/screenrecording-indicator"],
-  "modules-right": [
-    "group/tray-expander",
-    "bluetooth",
-    "network",
-    "pulseaudio",
-    "cpu",
-    "battery"
-  ],
+  "height": {{ .waybar_height }},
+  {{ if eq .waybar_wm "hyprland" }}
+  "modules-left": {{ .waybar_modules_left | toJson }},
+  "modules-center": {{ .waybar_modules_center | toJson }},
+  "modules-right": {{ .waybar_modules_right | toJson }},
   "hyprland/workspaces": {
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "default": "",
+      "default": " ",
       "1": "1",
       "2": "2",
       "3": "3",
@@ -29,7 +23,7 @@
       "8": "8",
       "9": "9",
       "10": "0",
-      "active": "󱓻"
+      "active": ""
     },
     "persistent-workspaces": {
       "1": [],
@@ -46,17 +40,16 @@
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
   },
   "custom/update": {
-    "format": "",
+    "format": "",
     "exec": "omarchy-update-available",
     "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
     "tooltip-format": "Omarchy update available",
     "signal": 7,
     "interval": 21600
   },
-
   "cpu": {
     "interval": 5,
-    "format": "󰍛",
+    "format": "",
     "on-click": "omarchy-launch-or-focus-tui btop"
   },
   "clock": {
@@ -66,11 +59,11 @@
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
   "network": {
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-icons": ["", "", "", "", ""],
     "format": "{icon}",
     "format-wifi": "{icon}",
-    "format-ethernet": "󰀂",
-    "format-disconnected": "󰤮",
+    "format-ethernet": "",
+    "format-disconnected": "",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
@@ -82,12 +75,12 @@
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",
     "format-charging": "{icon}",
-    "format-plugged": "",
+    "format-plugged": "",
     "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+      "charging": ["", "", "", "", "", "", "", "", "", ""],
+      "default": ["", "", "", "", "", "", "", "", "", ""]
     },
-    "format-full": "󰂅",
+    "format-full": "",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
@@ -98,9 +91,9 @@
     }
   },
   "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-connected": "󰂱",
+    "format": "",
+    "format-disabled": "",
+    "format-connected": "",
     "format-no-controller": "",
     "tooltip-format": "Devices connected: {num_connections}",
     "on-click": "omarchy-launch-bluetooth"
@@ -111,9 +104,9 @@
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
-    "format-muted": "",
+    "format-muted": "",
     "format-icons": {
-      "default": ["", "", ""]
+      "default": ["", "", ""]
     }
   },
   "group/tray-expander": {
@@ -125,7 +118,7 @@
     "modules": ["custom/expand-icon", "tray"]
   },
   "custom/expand-icon": {
-    "format": "",
+    "format": "",
     "tooltip": false
   },
   "custom/screenrecording-indicator": {
@@ -138,4 +131,71 @@
     "icon-size": 12,
     "spacing": 17
   }
+  {{ else }}
+  "modules-left": {{ .waybar_modules_left | toJson }},
+  "modules-center": {{ .waybar_modules_center | toJson }},
+  "modules-right": {{ .waybar_modules_right | toJson }},
+  "custom/run": {
+    "format": "<span face='MNTIcons'>M</span>",
+    "exec": "printf 'M\nApplications\n'",
+    "interval": 3600,
+    "on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
+  },
+  "custom/weather": {
+    "exec": "$HOME/.cargo/bin/outside -o waybar -s",
+    "format": "{text}",
+    "tooltip": true,
+    "return-type": "json"
+  },
+  "sway/window": {},
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-theme": "Papirus",
+    "icon-size": 22,
+    "on-click": "minimize-raise"
+  },
+  "tray": {
+    "icon-theme": "Papirus",
+    "icon-size": 20,
+    "spacing": 16
+  },
+  "custom/audio_idle_inhibitor": {
+    "format": "{icon}",
+    "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+    "exec-if": "which sway-audio-idle-inhibit",
+    "return-type": "json",
+    "format-icons": {
+      "output": "",
+      "input": "",
+      "output-input": "  ",
+      "none": ""
+    }
+  },
+  "clock": {
+    "tooltip-format": "{:%Y %B}",
+    "format-alt": "{:%Y-%m-%d}",
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "format-bluetooth": " {volume}%",
+    "format-bluetooth-muted": " Silent",
+    "format-muted": "Silent",
+    "format-source": "Vol {volume}%",
+    "format-source-muted": "Silent",
+    "on-click": "pavucontrol",
+    "tooltip": false,
+    "scroll-step": 5,
+    "format": "{icon} {volume}%",
+    "format-icons": {
+      "default": ["", "", ""]
+    }
+  },
+  "battery": {
+    "format": "{icon}   {capacity}%",
+    "icon-size": 22,
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  }
+  {{ end }}
 }

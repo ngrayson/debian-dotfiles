@@ -32,6 +32,23 @@
     {{ else if eq .chezmoi.os "windows" }}
     config_dir = "{{ .chezmoi.homeDir }}/AppData/Roaming"
     {{ end }}
+    
+    # Waybar configuration - machine-specific settings
+    {{ if eq .chezmoi.hostname "gnomon" }}
+    # gnomon - Debian with Sway (exception)
+    waybar_wm = "sway"
+    waybar_modules_left = ["custom/run", "sway/workspaces", "custom/audio_idle_inhibitor"]
+    waybar_modules_center = ["sway/window"]
+    waybar_modules_right = ["custom/weather", "tray", "battery", "clock"]
+    waybar_height = 24
+    {{ else }}
+    # Default - Arch Linux with Hyprland/Omarchy (TAWA and others)
+    waybar_wm = "hyprland"
+    waybar_modules_left = ["custom/omarchy", "hyprland/workspaces"]
+    waybar_modules_center = ["clock", "custom/update", "custom/screenrecording-indicator"]
+    waybar_modules_right = ["group/tray-expander", "bluetooth", "network", "pulseaudio", "cpu", "battery"]
+    waybar_height = 26
+    {{ end }}
 
 [git]
     autocommit = true

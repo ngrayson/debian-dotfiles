@@ -1,5 +1,5 @@
-#!/usr/bin/env zsh
-
+#!/bin/sh
+# Chezpush script - works in both bash and zsh
 # Show diff before applying
 chezmoi diff || exit 1
 

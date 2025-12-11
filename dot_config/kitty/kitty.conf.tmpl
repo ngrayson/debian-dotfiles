@@ -1,4 +1,4 @@
-{{ if or (eq .chezmoi.hostname "TAWA") (stat (printf "%s/.config/omarchy/themes/aether/kitty.conf" .chezmoi.homeDir)) }}
+{{ if .has_omarchy }}
 # Omarchy system - Use OS theme colors, but keep custom config options
 
 # Include Omarchy theme colors

@@ -33,6 +33,7 @@
 # Check playerctl for media players
 if command -v playerctl > /dev/null; then
     if playerctl status 2>/dev/null | grep -q "Playing"; then
+        echo "MEDIA"
         exit 0  # Media is playing
     fi
 fi
@@ -43,6 +44,7 @@ if command -v pactl > /dev/null; then
     # If there are any source-outputs, something is using the mic
     source_outputs=$(pactl list source-outputs short 2>/dev/null | wc -l)
     if [ "$source_outputs" -gt 0 ]; then
+        echo "SOURCE_OUTPUT"
         exit 0  # Microphone is in use
     fi
     
@@ -50,12 +52,14 @@ if command -v pactl > /dev/null; then
     # Parse pactl list sources short line by line, checking state column (5th field)
     # Use awk to check if any input source has RUNNING state
     if pactl list sources short 2>/dev/null | awk -F'\t' '$2 ~ /input/ && $5 == "RUNNING" {found=1} END {if(found) exit 0; exit 1}'; then
+        echo "MIC_RUNNING"
         exit 0  # Microphone source is actively recording
     fi
 fi
 
 # Check for fullscreen windows (often indicates video watching)
 if hyprctl clients -j 2>/dev/null | jq -r '.[] | select(.fullscreen == true)' | grep -q "."; then
+    echo "FULLSCREEN"
     exit 0  # Fullscreen window detected
 fi
 

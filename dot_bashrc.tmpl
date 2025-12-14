@@ -29,6 +29,7 @@ fi
 #
 # Make an alias for invoking commands you use constantly
 # alias p='python'
+alias refreshenv='source ~/.bashrc'
 {{ else }}
 
 ################
@@ -119,6 +120,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# zsh specific aliases
+alias refreshenv='source ~/.zshrc'
+
 {{ end }}
 
 ################

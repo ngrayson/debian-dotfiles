@@ -29,7 +29,7 @@ PANES=(
   "0 h 99 'stars'"      # Split pane 0 horizontally at 40%: creates left (40%) and right (60%) - stars runs in right pane
   # "1 v 10 'nvim'"
   # "2 h 50 'moon'"
-  "0 v 30 'sleep 1 && fastfetch'"  # Split pane 0 vertically at 40%: creates top-left (40%x40%) and bottom-left (40%x60%) - fastfetch runs in bottom-left
+  "0 v 30 'clear && sleep 1 && fastfetch'"  # Split pane 0 vertically at 40%: creates top-left (40%x40%) and bottom-left (40%x60%) - fastfetch runs in bottom-left
 )
 
 # First active pane after session creation

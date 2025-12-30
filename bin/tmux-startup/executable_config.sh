@@ -36,6 +36,11 @@ PANES=(
 # Example: 1 (select the second pane), 2 (select the third pane), etc.
 ACTIVE_PANE=1
 
+# Workspace to launch terminal on (for window managers that support it)
+# Default: 1
+# Set to empty string to disable workspace targeting
+WORKSPACE=1
+
 # Behavior when session already exists
 # Options: "skip", "attach", "recreate"
 EXISTING_SESSION_ACTION="attach"

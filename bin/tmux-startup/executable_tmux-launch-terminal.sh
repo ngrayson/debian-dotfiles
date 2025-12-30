@@ -59,8 +59,9 @@ if [[ -z "$TERMINAL_EMULATOR" ]]; then
     exit 1
 fi
 
-# Get session name from config or use default
+# Get session name and workspace from config or use defaults
 SESSION_NAME="${SESSION_NAME:-startup}"
+WORKSPACE="${WORKSPACE:-1}"
 
 # Ensure the tmux session exists (suppress errors if session already exists)
 "$STARTUP_SCRIPT" 2>&1 | grep -v "^\[" || true
@@ -68,10 +69,31 @@ SESSION_NAME="${SESSION_NAME:-startup}"
 # Wait a moment for session to be ready
 sleep 0.5
 
+# Function to detect window manager/compositor
+detect_wm() {
+    if command -v hyprctl &> /dev/null && [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+        echo "hyprland"
+        return 0
+    elif command -v niri &> /dev/null && [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+        echo "niri"
+        return 0
+    elif command -v swaymsg &> /dev/null && [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+        echo "sway"
+        return 0
+    elif [[ -n "${DISPLAY:-}" ]] && command -v wmctrl &> /dev/null; then
+        echo "x11"
+        return 0
+    fi
+    echo "unknown"
+    return 1
+}
+
 # Launch terminal with tmux attach command
 # Use systemd-run to launch in user session context (needed when running from systemd service)
 launch_terminal() {
     local cmd=""
+    local wm=$(detect_wm)
+    local workspace="${WORKSPACE:-1}"
     
     # Build the command based on terminal type
     case "$TERMINAL_EMULATOR" in
@@ -93,6 +115,31 @@ launch_terminal() {
         *)
             # Generic fallback
             cmd="$TERMINAL_EMULATOR -e tmux attach -t $SESSION_NAME"
+            ;;
+    esac
+    
+    # Wrap command to launch on specific workspace based on window manager
+    case "$wm" in
+        hyprland)
+            # Hyprland: Use [workspace X] syntax in exec command
+            cmd="hyprctl dispatch exec \"[workspace $workspace] $cmd\""
+            ;;
+        niri)
+            # Niri: Switch to workspace first, then launch
+            cmd="niri msg action focus-workspace $workspace; sleep 0.1; $cmd"
+            ;;
+        sway)
+            # Sway: Use workspace command
+            cmd="swaymsg \"workspace $workspace; exec $cmd\""
+            ;;
+        x11)
+            # X11: Use wmctrl if available, otherwise just launch
+            if command -v wmctrl &> /dev/null; then
+                cmd="wmctrl -s $((workspace - 1)) 2>/dev/null; $cmd"
+            fi
+            ;;
+        *)
+            # Unknown WM: Just launch normally
             ;;
     esac
     

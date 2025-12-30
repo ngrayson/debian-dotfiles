@@ -119,29 +119,32 @@ launch_terminal() {
     esac
     
     # Wrap command to launch on specific workspace based on window manager
-    case "$wm" in
-        hyprland)
-            # Hyprland: Use [workspace X] syntax in exec command
-            cmd="hyprctl dispatch exec \"[workspace $workspace] $cmd\""
-            ;;
-        niri)
-            # Niri: Switch to workspace first, then launch
-            cmd="niri msg action focus-workspace $workspace; sleep 0.1; $cmd"
-            ;;
-        sway)
-            # Sway: Use workspace command
-            cmd="swaymsg \"workspace $workspace; exec $cmd\""
-            ;;
-        x11)
-            # X11: Use wmctrl if available, otherwise just launch
-            if command -v wmctrl &> /dev/null; then
-                cmd="wmctrl -s $((workspace - 1)) 2>/dev/null; $cmd"
-            fi
-            ;;
-        *)
-            # Unknown WM: Just launch normally
-            ;;
-    esac
+    if [[ -n "$workspace" ]] && [[ "$workspace" != "0" ]]; then
+        case "$wm" in
+            hyprland)
+                # Hyprland: Use [workspace X] syntax in exec command
+                # Note: The workspace number can be a name or number
+                cmd="hyprctl dispatch exec '[workspace $workspace] $cmd'"
+                ;;
+            niri)
+                # Niri: Switch to workspace first, then launch
+                cmd="niri msg action focus-workspace $workspace; sleep 0.2; $cmd"
+                ;;
+            sway)
+                # Sway: Use workspace command
+                cmd="swaymsg workspace $workspace; swaymsg exec '$cmd'"
+                ;;
+            x11)
+                # X11: Use wmctrl if available, otherwise just launch
+                if command -v wmctrl &> /dev/null; then
+                    cmd="wmctrl -s $((workspace - 1)) 2>/dev/null; $cmd"
+                fi
+                ;;
+            *)
+                # Unknown WM: Just launch normally
+                ;;
+        esac
+    fi
     
     # Check if we're running from systemd (no TTY available)
     # When running from systemd, we need to use systemd-run to launch GUI apps

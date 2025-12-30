@@ -1,0 +1,273 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    {{ if eq .chezmoi.hostname "TAWA" }}
+    "type": "kitty-icat",
+    "source": "~/.config/izar-tsp.gif",
+    "preserveAspectRatio": true,
+    "padding": {
+      "top": 1,
+      "right": 1,
+      "left": 3
+    }
+    {{ else if eq .chezmoi.hostname "gnomon" }}
+    "type": "kitty-icat",
+    "source": "~/.config/wizterm.gif",
+    "preserveAspectRatio": true,
+    "padding": {
+      "top": 1,
+      "right": 1,
+      "left": 1
+    }
+    {{ else }}
+    "color": { "1": "green" },
+    "padding": {
+      "top": 2,
+      "right": 6,
+      "left": 2
+    }
+    {{ end }}
+  },
+    {{ if eq .chezmoi.hostname "TAWA" }}
+    
+	"display": {
+		"bar": {
+			"width": 10,
+			"border":{
+				"right": "]",
+				"left": "["
+			}
+		},
+		"disableLinewrap": true,
+		"hideCursor": true,
+		"showErrors": true,
+	},
+  "modules": [
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌────────────────────┤│ Hardware │├───────────────────┐"
+    },
+    {
+      "type": "host",
+      "key": " PC",
+      "keyColor": "green"
+    },
+    {
+      "type": "cpu",
+      "key": "  ├ ",
+      "showPeCoreCount": true,
+      "keyColor": "green",
+      "format": "{name} {march}"
+    },
+    {
+      "type": "gpu",
+      "key": "  ├ ",
+      "detectionMethod": "pci",
+      "keyColor": "green"
+    },
+    {
+      "type": "display",
+      "key": "  ├ 󱄄",
+      "keyColor": "green",
+      "format": "{12}\" {width}x{height} @ {3}Hz"
+    },
+    {
+      "type": "disk",
+      "key": "  ├ 󰋊",
+      "keyColor": "green",
+      "format": "{size-percentage-bar} {1} / {2} ({3})",
+      "percent": {
+        "type": ["num", "bar"]
+      }
+    },
+    {
+      "type": "memory",
+      "key": "  ├ ",
+      "keyColor": "green"
+    },
+    {
+      "type": "swap",
+      "key": "  └ 󰓡 ",
+      "keyColor": "green"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌────────────────────┤│ Software │├───────────────────┐"
+    },
+    {
+      "type": "command",
+      "key": " OS",
+      "keyColor": "magenta",
+      "text": "version=$(omarchy-version); branch=$(omarchy-version-branch); channel=$(omarchy-version-channel); echo \"Omarchy $version $branch $channel\""
+    },
+    {
+      "type": "kernel",
+      "key": "  ├ ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "wm",
+      "key": "  ├ ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "terminal",
+      "key": "  ├ ",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "packages",
+      "key": "  ├ 󰏖",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "command",
+      "key": "  ├ 󰸌",
+      "keyColor": "magenta",
+      "text": "theme=$(omarchy-theme-current); echo -e \"izar \\e[38m󰫢 \\e[37m󰫢 \\e[36m󰫢 \\e[35m󰫢 \\e[34m󰫢 \\e[33m󰫢 \\e[32m󰫢 \\e[31m󰫢 \""
+    },
+    {
+      "type": "terminalfont",
+      "key": "  └ ",
+      "keyColor": "magenta"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "\u001b[90m┌────────────────────┤│ History │├────────────────────┐"
+    },
+    {
+      "type": "command",
+      "key": " ┬  󱦟 OS Age",
+      "keyColor": "blue",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+    },
+    {
+      "type": "uptime",
+      "key": "  ├  󱫐 Uptime",
+      "keyColor": "blue"
+    },
+    {
+      "type": "command",
+      "key": "  └   Update",
+      "keyColor": "blue",
+      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\""
+    },
+    "break"
+  ]
+
+
+
+
+
+
+
+
+    {{ else if eq .chezmoi.hostname "gnomon" }}
+
+	"display": {
+		"separator": " > ",
+		"color": {
+			"keys": "green",
+			"title": "cyan"
+		},
+		"key": {
+			"width": 5,
+			"type": "string"
+		    // "type": "icon",
+			// "type": "both"
+		},
+		"bar": {
+			"width": 4,
+			"border":{
+				"right": "]",
+				"left": "["
+			}
+		},
+		"disableLinewrap": true,
+		"hideCursor": true,
+		"showErrors": true
+	},
+    "modules": [
+		"break",
+		// "title",
+		// "separator",
+		{ "type": "os", "key": "SYS", "format": "{10}" },
+		// "host",
+		{ "type": "host", "key": "HST", "format": "MNT Pocket RK3588" },
+		// "kernel",
+
+		{ "type": "uptime", "key": "UPT", "format": "{days}d {hours}h {minutes}m" },
+		// "packages",
+		{ "type": "shell", "key": "SHL" },
+		{ "type": "terminal", "key": "TRM", "format": "{1}" },
+		// "display",
+		// "de",
+		// "wm",
+		// "wmtheme",
+		// "theme",
+		// "icons",
+		// "font",
+		// "cursor",
+		// "terminalfont",
+		// { "type": "cpu", "key": "CPU", "format": "{1} {2}" },
+		// { "type": "gpu", "format": "{1} {2}" },
+		{
+			"type": "memory",
+			"key": "MEM",
+			"percent": {
+				"type": ["num", "bar"]
+			},
+
+			"format": "{percentage-bar} {total}"
+			// "format": "{percentage-bar} [{percentage}] {total}"
+		},
+		// {
+		// 	"type": "disk",
+		// 	"key": "DSK",
+		// 	"format": "{size-used}/{size-total}"
+		// },
+		{
+			"key": "DSK",
+			"type": "disk",
+			"format": "{size-percentage-bar} {size-total}",
+			// "format": "{size-percentage-bar} [{size-percentage}] {size-total}",
+			"percent": {
+				"type": ["num", "bar"]
+			}
+		},
+		// "swap",
+		// "disk",
+		// "localip",
+		// {
+		// 	"key": "BAT",
+		// 	"type": "battery",
+		// 	"format": "{status} {time-hours}H {time-minutes}M"
+		// },
+		// {
+		// 	"key": "BAT",
+		// 	"type": "battery",
+		// 	"format": "{capacity-bar} {time-hours}H {time-minutes}M",
+		// 	// "format": "{capacity-bar} [{capacity}] {time-hours}H {time-minutes}M",
+		// 	"percent": {
+		// 		"type": ["num", "bar"]
+		// 	}
+		// },
+		// "battery",
+		// "poweradapter",
+		// "locale",
+		"break",
+		{
+			"type": "colors",
+			// "symbol": "background",
+			"symbol": "block",
+			"paddingLeft": 0,
+			"block": { "width": 3, "range": [1, 7] }
+		},
+		"break"
+	]
+    {{ end }}
+}
+

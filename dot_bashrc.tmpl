@@ -15,6 +15,11 @@ source ~/.local/share/omarchy/default/bash/rc
 if [ -d "$HOME/bin" ] && [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
     export PATH="$HOME/bin:$PATH"
 fi
+# Add ~/.local/bin to PATH if it exists and isn't already in PATH
+if [ -d "$HOME/.local/bin" ] && [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 
 # Enable programmable completion
 if ! shopt -oq posix; then

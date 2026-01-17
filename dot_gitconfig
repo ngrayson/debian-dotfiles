@@ -1,14 +1,12 @@
 [user]
-    name = {{ .username }}
-    email = {{ .email }}
+    name = wiz
+    email = linux@example.com
 
 [core]
-    editor = {{ .editor }}
-    {{ if eq .chezmoi.os "linux" }}
+    editor = micro
+    
     autocrlf = input
-    {{ else if eq .chezmoi.os "windows" }}
-    autocrlf = true
-    {{ end }}
+    
 
 [init]
     defaultBranch = main
@@ -18,8 +16,9 @@
 
 [push]
     default = simple
+	autoSetupRemote = true
 
-{{ if eq .chezmoi.os "linux" }}
+
 [alias]
     st = status
     co = checkout
@@ -28,7 +27,7 @@
     unstage = reset HEAD --
     last = log -1 HEAD
     visual = !gitk
-{{ end }}
+
 
 [credential "https://github.com"]
 	helper = 

@@ -8,7 +8,7 @@ Wants=graphical-session.target
 Type=oneshot
 RemainAfterExit=yes
 # First ensure the session exists, then launch terminal window
-ExecStart=/bin/bash -c '%h/bin/tmux-startup/tmux-startup.sh && %h/bin/tmux-startup/tmux-launch-terminal.sh'
+ExecStart=/bin/bash -c '%h/bin/tmux-startup/tmux-startup.sh'
 StandardOutput=journal
 StandardError=journal
 

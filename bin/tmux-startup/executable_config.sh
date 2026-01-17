@@ -28,7 +28,7 @@ INITIAL_PANE_CMD="btop -p 3"
 PANES=(
   "0 h 69 'stars'"      # Split pane 0 horizontally at 40%: creates left (40%) and right (60%) - stars runs in right pane
   "1 v 4 'cava'"
-  "2 h 25 'pactl set-sink-volume @DEFAULT_SINK@ 75% && mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/10-sing-good.mp3 --volume=50 --no-audio-display'"
+  "2 h 25 'pactl set-sink-volume @DEFAULT_SINK@ 75% && mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/ --shuffle --volume=50 --no-audio-display'"
   # "2 h 50 'moon'"
   "0 v 45 'clear && fastfetch'"  # Split pane 0 vertically at 40%: creates top-left (40%x40%) and bottom-left (40%x60%) - fastfetch runs in bottom-left
 )

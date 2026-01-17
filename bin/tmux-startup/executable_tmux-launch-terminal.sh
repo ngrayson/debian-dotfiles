@@ -63,8 +63,11 @@ fi
 SESSION_NAME="${SESSION_NAME:-startup}"
 WORKSPACE="${WORKSPACE:-1}"
 
-# Ensure the tmux session exists (suppress errors if session already exists)
-"$STARTUP_SCRIPT" 2>&1 | grep -v "^\[" || true
+# Session should already exist (startup script creates it and launches this script)
+# Just verify it exists, don't recreate it
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "WARNING: Session '$SESSION_NAME' does not exist. Startup script should have created it." >&2
+fi
 
 # Wait a moment for session to be ready
 sleep 0.5

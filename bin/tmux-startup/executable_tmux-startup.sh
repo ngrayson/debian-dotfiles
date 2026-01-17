@@ -78,14 +78,56 @@ if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     esac
 fi
 
+# Ensure tmux server is running by starting it if needed
+# Starting a new session will start the server if it's not running
+log "Ensuring tmux server is running..."
+if ! tmux list-sessions &>/dev/null; then
+    log "Starting tmux server..."
+    # Start server by creating a temporary session, then kill it
+    tmux new-session -d -s __tmux_startup_temp__ 2>/dev/null || true
+    sleep 0.2
+    tmux kill-session -t __tmux_startup_temp__ 2>/dev/null || true
+fi
+
 # Create new tmux session (detached)
 log "Creating new tmux session: $SESSION_NAME"
-tmux new-session -d -s "$SESSION_NAME"
+if ! tmux new-session -d -s "$SESSION_NAME" 2>&1; then
+    error "Failed to create tmux session: $SESSION_NAME"
+fi
+
+# Verify the session was created and tmux server is running
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    error "Session '$SESSION_NAME' was not created successfully"
+fi
+log "Session '$SESSION_NAME' created successfully"
+
+# Function to verify tmux server is running
+verify_tmux_server() {
+    if ! tmux list-sessions &>/dev/null; then
+        log "ERROR: Tmux server is not running"
+        return 1
+    fi
+    return 0
+}
 
 # Function to wait for a terminal client to attach to the session
 # This ensures the window has proper dimensions before we create panes
 wait_for_client_attachment() {
-    local max_attempts=50  # Wait up to 5 seconds (50 * 0.1s)
+    # When running from systemd, launch the terminal first, then wait for it
+    if [[ -n "${SYSTEMD_EXEC_PID:-}" ]] || [[ ! -t 1 ]]; then
+        log "Running from systemd - launching terminal first, then waiting for attachment..."
+        # Launch terminal in background
+        LAUNCHER_SCRIPT="${SCRIPT_DIR}/tmux-launch-terminal.sh"
+        if [[ -f "$LAUNCHER_SCRIPT" ]]; then
+            bash "$LAUNCHER_SCRIPT" >/dev/null 2>&1 &
+            local launcher_pid=$!
+            log "Terminal launcher started (PID: $launcher_pid)"
+        else
+            log "WARNING: Terminal launcher script not found: $LAUNCHER_SCRIPT"
+        fi
+    fi
+    
+    local max_attempts=100  # Wait up to 10 seconds (100 * 0.1s) - longer for systemd
     local attempt=0
     local client_count=0
     
@@ -93,9 +135,10 @@ wait_for_client_attachment() {
     
     while [[ $attempt -lt $max_attempts ]]; do
         # Check if any clients are attached to this session
-        client_count=$(tmux list-clients -t "$SESSION_NAME" 2>/dev/null | wc -l)
+        # Use || true to prevent script exit if tmux command fails
+        client_count=$(tmux list-clients -t "$SESSION_NAME" 2>/dev/null | wc -l || echo "0")
         
-        if [[ "$client_count" -gt 0 ]]; then
+        if [[ "$client_count" =~ ^[0-9]+$ ]] && [[ "$client_count" -gt 0 ]]; then
             # Client attached, now wait for window to have valid dimensions
             local window_width=$(tmux display-message -t "${SESSION_NAME}:0" -p '#{window_width}' 2>/dev/null || echo "0")
             local window_height=$(tmux display-message -t "${SESSION_NAME}:0" -p '#{window_height}' 2>/dev/null || echo "0")
@@ -113,17 +156,20 @@ wait_for_client_attachment() {
     done
     
     log "WARNING: No client attached after $max_attempts attempts. Proceeding anyway (panes may have incorrect proportions)."
-    return 1
+    return 0  # Return 0 to allow script to continue even if client didn't attach
 }
 
 # Wait for terminal client to attach before creating panes
 # This ensures the window has proper dimensions for accurate pane proportions
+# (Skipped when running from systemd, as terminal launches after this script)
 wait_for_client_attachment
 
 # Run command in initial pane (pane 0) if configured
 if [[ -n "${INITIAL_PANE_CMD:-}" ]] && [[ "${INITIAL_PANE_CMD}" != "''" ]] && [[ "${INITIAL_PANE_CMD}" != '""' ]]; then
     log "Running initial command in pane 0: $INITIAL_PANE_CMD"
-    tmux send-keys -t "${SESSION_NAME}:0.0" "$INITIAL_PANE_CMD" C-m
+    if ! tmux send-keys -t "${SESSION_NAME}:0.0" "$INITIAL_PANE_CMD" C-m; then
+        log "WARNING: Failed to send initial command to pane 0, continuing anyway"
+    fi
 fi
 
 # Function to split pane and run command
@@ -147,6 +193,16 @@ split_and_run() {
     
     log "Splitting pane $pane_index: direction=$direction, size=$size%, command=$command"
     
+    # Verify tmux server is still running and session exists before attempting split
+    if ! verify_tmux_server; then
+        log "ERROR: Cannot split pane - tmux server not available"
+        return 1
+    fi
+    if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+        log "ERROR: Cannot split pane - session '$SESSION_NAME' does not exist"
+        return 1
+    fi
+    
     # Split pane based on direction and capture the new pane ID using -P flag
     # Note: tmux uses -h for horizontal split (left-right) and -v for vertical split (top-bottom)
     # The -P flag prints the new pane ID to stdout
@@ -155,18 +211,24 @@ split_and_run() {
     if [[ "$direction" == "h" ]]; then
         # Horizontal split (left-right): -h splits vertically in tmux terminology
         # Percentage: -p option specifies percentage of the window
-        split_output=$(tmux split-window -h -t "${SESSION_NAME}:0.${pane_index}" -p "$size" -P -F '#{pane_index}' 2>&1)
-        if [[ $? -ne 0 ]] || [[ -z "$split_output" ]]; then
+        split_output=$(tmux split-window -h -t "${SESSION_NAME}:0.${pane_index}" -p "$size" -P -F '#{pane_index}' 2>&1) || {
             log "WARNING: Failed to split pane $pane_index horizontally. Output: $split_output"
+            return 1
+        }
+        if [[ -z "$split_output" ]]; then
+            log "WARNING: Split command produced no output for pane $pane_index"
             return 1
         fi
         new_pane=$(echo "$split_output" | head -n1 | tr -d '[:space:]')
     else
         # Vertical split (top-bottom): -v splits horizontally in tmux terminology
         # Use -p (percentage) - this works even when window height isn't fully known yet
-        split_output=$(tmux split-window -v -t "${SESSION_NAME}:0.${pane_index}" -p "$size" -P -F '#{pane_index}' 2>&1)
-        if [[ $? -ne 0 ]] || [[ -z "$split_output" ]]; then
+        split_output=$(tmux split-window -v -t "${SESSION_NAME}:0.${pane_index}" -p "$size" -P -F '#{pane_index}' 2>&1) || {
             log "WARNING: Failed to split pane $pane_index vertically. Output: $split_output"
+            return 1
+        }
+        if [[ -z "$split_output" ]]; then
+            log "WARNING: Split command produced no output for pane $pane_index"
             return 1
         fi
         new_pane=$(echo "$split_output" | head -n1 | tr -d '[:space:]')
@@ -231,7 +293,10 @@ if [[ -n "${PANES:-}" ]] && [[ ${#PANES[@]} -gt 0 ]]; then
         # Remove quotes from command if present
         command=$(echo "$command" | sed "s/^['\"]//;s/['\"]$//")
         
-        split_and_run "$pane_index" "$direction" "$size" "$command" || true
+        # Continue even if split fails - log the error but don't exit
+        if ! split_and_run "$pane_index" "$direction" "$size" "$command"; then
+            log "WARNING: Failed to create pane from definition: $pane_def"
+        fi
     done
 fi
 

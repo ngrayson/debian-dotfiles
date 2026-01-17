@@ -1,0 +1,24 @@
+[Unit]
+Description=Tmux Startup Session
+Documentation=file://%h/bin/tmux-startup/README.md
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# First ensure the session exists, then launch terminal window
+ExecStart=/bin/bash -c '%h/bin/tmux-startup/tmux-startup.sh'
+StandardOutput=journal
+StandardError=journal
+
+# Environment variables are inherited from the user session automatically
+# For user services, DISPLAY, WAYLAND_DISPLAY, XDG_RUNTIME_DIR are available
+# If you need additional variables, uncomment and modify below:
+# Environment="CUSTOM_VAR=value"
+
+# Load environment from environment.d if present
+EnvironmentFile=-%h/.config/environment.d/*.conf
+
+[Install]
+WantedBy=graphical-session.target

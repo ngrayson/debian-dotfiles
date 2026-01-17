@@ -13,6 +13,7 @@
 	],
 	"modules-right": [
 		"custom/weather",
+		"custom/audio_profile",
 		"tray", 
 		"battery", 
 		"clock"
@@ -58,6 +59,14 @@
 		"tooltip-format": "{:%Y %B}",
 		"format-alt": "{:%Y-%m-%d}",
 		"tooltip": false
+	},
+	"custom/audio_profile": {
+		"format": "{}",
+		"exec": "$HOME/Agent/scripts/audio/audio-profile-toggle.sh",
+		"interval": 2,
+		"return-type": "json",
+		"on-click": "$HOME/Agent/scripts/audio/audio-profile-toggle.sh toggle",
+		"tooltip": true
 	},
 	"pulseaudio": {
 		// "scroll-step": 1,

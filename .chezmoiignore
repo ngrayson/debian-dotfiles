@@ -1,0 +1,25 @@
+# Machine-specific configurations to ignore
+
+{{ if eq .chezmoi.hostname "gnomon" }}
+# gnomon (Debian, Sway) - Ignore Hyprland and Arch-specific configs
+.config/hypr/
+.config/systemd/user/tmux-startup.service
+bin/tmux-startup/
+bin/executable_agent.sh
+.local/bin/hypridle-checks/
+.local/bin/executable_afk
+.local/bin/executable_hypridle-status.sh
+.local/share/applications/afk.desktop
+.local/share/applications/Basecamp.desktop
+.newsboat/
+{{ end }}
+
+{{ if eq .chezmoi.hostname "TAWA" }}
+# TAWA (Arch, Hyprland) - Ignore Sway and Debian-specific configs
+.config/sway/
+.zshrc
+{{ end }}
+
+# Deprecated files (ignore on all machines)
+.local/share/applications/cursor-agent.desktop
+.local/share/applications/cursor-agent-new.desktop

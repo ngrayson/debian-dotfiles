@@ -1,0 +1,21 @@
+# Shared aliases across all machines
+
+# System aliases
+alias ll='ls -ll'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Fetch/display aliases
+alias fetch="fastfetch"
+
+# Weather aliases
+alias stars="astroterm -r 3 -Ccum -i seattle -s 50 -t 2.5 -l 1.7"
+alias moon="curl \"wttr.in/moon?Fun\""
+alias weather="curl \"wttr.in/kirkland?FunQ2\""
+
+# Chezmoi management
+alias chezpush="~/bin/chezpush.sh"
+
+# Machine-specific aliases (keep in respective shell configs)
+# - zsh-specific aliases should stay in .zshrc
+# - bash-specific aliases should stay in .bashrc

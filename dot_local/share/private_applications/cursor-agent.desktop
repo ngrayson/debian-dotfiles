@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Cursor Agent
-Comment=Open Cursor AI agent CLI
-Exec=kitty -e agent
-Icon=utilities-terminal
-Terminal=false
-Categories=Development;
-Keywords=cursor;agent;ai;cli;code;assistant;

@@ -8,30 +8,59 @@
     arch = "{{ .chezmoi.arch }}"
     
     # Machine-specific settings
-    {{ if eq .chezmoi.os "linux" }}
-    # Linux-specific settings
-    terminal = "wezterm"
+    {{ if eq .chezmoi.hostname "gnomon" }}
+    # gnomon - MNT Pocket Reform, Debian forky/sid, Sway
+    terminal = "kitty"
     shell = "zsh"
     wm = "sway"
     editor = "micro"
-    {{ else if eq .chezmoi.os "windows" }}
-    # Windows-specific settings
-    terminal = "wt"
-    shell = "powershell"
-    wm = "none"
-    editor = "code"
+    has_omarchy = false
+    has_battery = true
+    waybar_wm = "sway"
+    waybar_modules_left = ["custom/run", "sway/workspaces", "custom/audio_idle_inhibitor"]
+    waybar_modules_center = ["sway/window"]
+    waybar_modules_right = ["custom/weather", "custom/audio_profile", "tray", "battery", "clock"]
+    waybar_height = 24
+    {{ else if eq .chezmoi.hostname "TAWA" }}
+    # TAWA - Desktop PC, Arch Linux (Omarchy), Hyprland
+    terminal = "kitty"
+    shell = "bash"
+    wm = "hyprland"
+    editor = "micro"
+    has_omarchy = true
+    has_battery = false
+    waybar_wm = "hyprland"
+    waybar_modules_left = ["custom/omarchy", "hyprland/workspaces"]
+    waybar_modules_center = ["clock", "custom/update", "custom/voxtype", "custom/screenrecording-indicator"]
+    waybar_modules_right = ["group/tray-expander", "bluetooth", "network", "pulseaudio", "cpu"]
+    waybar_height = 26
+    {{ else }}
+    # Default - fallback for other machines
+    terminal = "kitty"
+    shell = "bash"
+    wm = "sway"
+    editor = "micro"
+    has_omarchy = false
+    has_battery = false
+    waybar_wm = "sway"
+    waybar_modules_left = ["sway/workspaces"]
+    waybar_modules_center = ["sway/window"]
+    waybar_modules_right = ["tray", "clock"]
+    waybar_height = 24
     {{ end }}
     
     # User preferences
     username = "{{ .chezmoi.username }}"
-    email = "{{ if eq .chezmoi.hostname "gnomon" }}linux@example.com{{ else }}windows@example.com{{ end }}"
+    {{ if eq .chezmoi.hostname "gnomon" }}
+    email = "linux@example.com"
+    {{ else if eq .chezmoi.hostname "TAWA" }}
+    email = "nick@wizardtower.org"
+    {{ else }}
+    email = "{{ .chezmoi.username }}@example.com"
+    {{ end }}
     
     # Paths
-    {{ if eq .chezmoi.os "linux" }}
     config_dir = "{{ .chezmoi.homeDir }}/.config"
-    {{ else if eq .chezmoi.os "windows" }}
-    config_dir = "{{ .chezmoi.homeDir }}/AppData/Roaming"
-    {{ end }}
 
 [git]
     autocommit = true

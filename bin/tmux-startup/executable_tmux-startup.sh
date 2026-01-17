@@ -82,6 +82,44 @@ fi
 log "Creating new tmux session: $SESSION_NAME"
 tmux new-session -d -s "$SESSION_NAME"
 
+# Function to wait for a terminal client to attach to the session
+# This ensures the window has proper dimensions before we create panes
+wait_for_client_attachment() {
+    local max_attempts=50  # Wait up to 5 seconds (50 * 0.1s)
+    local attempt=0
+    local client_count=0
+    
+    log "Waiting for terminal client to attach to session..."
+    
+    while [[ $attempt -lt $max_attempts ]]; do
+        # Check if any clients are attached to this session
+        client_count=$(tmux list-clients -t "$SESSION_NAME" 2>/dev/null | wc -l)
+        
+        if [[ "$client_count" -gt 0 ]]; then
+            # Client attached, now wait for window to have valid dimensions
+            local window_width=$(tmux display-message -t "${SESSION_NAME}:0" -p '#{window_width}' 2>/dev/null || echo "0")
+            local window_height=$(tmux display-message -t "${SESSION_NAME}:0" -p '#{window_height}' 2>/dev/null || echo "0")
+            
+            # Check if we have valid dimensions (at least 10x10 to be safe)
+            if [[ "$window_width" =~ ^[0-9]+$ ]] && [[ "$window_height" =~ ^[0-9]+$ ]] && \
+               [[ "$window_width" -ge 10 ]] && [[ "$window_height" -ge 10 ]]; then
+                log "Client attached and window sized: ${window_width}x${window_height}"
+                return 0
+            fi
+        fi
+        
+        attempt=$((attempt + 1))
+        sleep 0.1
+    done
+    
+    log "WARNING: No client attached after $max_attempts attempts. Proceeding anyway (panes may have incorrect proportions)."
+    return 1
+}
+
+# Wait for terminal client to attach before creating panes
+# This ensures the window has proper dimensions for accurate pane proportions
+wait_for_client_attachment
+
 # Run command in initial pane (pane 0) if configured
 if [[ -n "${INITIAL_PANE_CMD:-}" ]] && [[ "${INITIAL_PANE_CMD}" != "''" ]] && [[ "${INITIAL_PANE_CMD}" != '""' ]]; then
     log "Running initial command in pane 0: $INITIAL_PANE_CMD"
@@ -125,6 +163,7 @@ split_and_run() {
         new_pane=$(echo "$split_output" | head -n1 | tr -d '[:space:]')
     else
         # Vertical split (top-bottom): -v splits horizontally in tmux terminology
+        # Use -p (percentage) - this works even when window height isn't fully known yet
         split_output=$(tmux split-window -v -t "${SESSION_NAME}:0.${pane_index}" -p "$size" -P -F '#{pane_index}' 2>&1)
         if [[ $? -ne 0 ]] || [[ -z "$split_output" ]]; then
             log "WARNING: Failed to split pane $pane_index vertically. Output: $split_output"

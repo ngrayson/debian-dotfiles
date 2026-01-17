@@ -16,7 +16,7 @@ ATTACH_SESSION=true
 # Leave empty to not run any command in the first pane
 # Example: 'fastfetch', 'neofetch', 'echo "Hello"', ''
 # Note: This will run in pane 0, which becomes the upper-left pane after splits
-INITIAL_PANE_CMD="btop"
+INITIAL_PANE_CMD="btop -p 3"
 
 # Pane definitions
 # Format: "pane_index split_direction size 'command'"
@@ -26,10 +26,11 @@ INITIAL_PANE_CMD="btop"
 # - command: Command to run in the new pane (use single quotes for commands with spaces)
 # Layout: btop (upper-left 40%x40%), fastfetch (bottom-left 40%x60%), stars (right 60%x100%)
 PANES=(
-  "0 h 100 'stars'"      # Split pane 0 horizontally at 40%: creates left (40%) and right (60%) - stars runs in right pane
-  "1 v 000 'cava'"
+  "0 h 69 'stars'"      # Split pane 0 horizontally at 40%: creates left (40%) and right (60%) - stars runs in right pane
+  "1 v 4 'cava'"
+  "2 h 25 'pactl set-sink-volume @DEFAULT_SINK@ 75% && mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/10-sing-good.mp3 --volume=50 --no-audio-display'"
   # "2 h 50 'moon'"
-  "0 v 30 'clear && sleep 1 && fastfetch'"  # Split pane 0 vertically at 40%: creates top-left (40%x40%) and bottom-left (40%x60%) - fastfetch runs in bottom-left
+  "0 v 45 'clear && fastfetch'"  # Split pane 0 vertically at 40%: creates top-left (40%x40%) and bottom-left (40%x60%) - fastfetch runs in bottom-left
 )
 
 # First active pane after session creation

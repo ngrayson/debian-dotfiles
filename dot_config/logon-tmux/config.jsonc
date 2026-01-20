@@ -1,0 +1,66 @@
+{
+  // Terminal command (empty = use default terminal)
+  "terminal_cmd": "",
+
+  // Multi-session configuration
+  // Each session defines: monitor ID, session name, workspace, initial command, active pane, panes array, and existing action
+  "sessions": [
+    {
+      // Left monitor (DP-3, monitor 1): System monitoring
+      "monitor": 1,
+      "session": "startup-left",
+      "workspace": 3,
+      "initial_cmd": "pactl set-sink-volume @DEFAULT_SINK@ 75% && btop -p 3",
+      "active_pane": 0,
+      "panes": [
+        "0 v 70 'agent'"
+      ],
+      "existing_action": "recreate"
+    },
+    {
+      // Center monitor (HDMI-A-1, monitor 2): Current layout - btop, stars, cava, mpv, fastfetch
+      "monitor": 2,
+      "session": "startup-center",
+      "workspace": 1,
+      "initial_cmd": "stars",
+      "active_pane": 1,
+      "panes": [
+        "0 h 69 'tracker'",
+        "1 v 4 'cava'",
+        "2 h 25 'mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/ --shuffle --volume=50 --no-audio-display'",
+        // "2 h 25 'echo hi'",
+        // "0 v 45 'btop'"
+        // "0 v 45 'sleep 1 && fetch && echo hi'"
+        "0 v 45 'clear && sleep 0.1 && fetch'"
+      ],
+      "existing_action": "recreate"
+    },
+    {
+      // Right monitor (DP-1, monitor 0): News
+      "monitor": 0,
+      "session": "startup-right",
+      "workspace": 2,
+      "initial_cmd": "newsboat",
+      "active_pane": 0,
+      "panes": [],
+      "existing_action": "recreate"
+    }
+  ],
+
+  // Single-session mode (backward compatibility)
+  // Used if sessions array is empty or not defined
+  "single_session": {
+    "session_name": "startup",
+    "attach_session": true,
+    "initial_pane_cmd": "btop -p 3",
+    "panes": [
+      "0 h 69 'stars'",
+      "1 v 4 'cava'",
+      "2 h 25 'pactl set-sink-volume @DEFAULT_SINK@ 75% && mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/ --shuffle --volume=50 --no-audio-display'",
+      "0 v 45 'clear && fastfetch'"
+    ],
+    "active_pane": 1,
+    "workspace": 1,
+    "existing_action": "recreate"
+  }
+}

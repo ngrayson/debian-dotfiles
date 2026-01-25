@@ -27,7 +27,7 @@
       "panes": [
         "0 h 69 'tracker'",
         "1 v 4 'cava'",
-        "2 h 25 'mpv ~/Music/i-love-my-computer-mp3/i-love-my-computer/ --shuffle --volume=50 --no-audio-display'",
+        "2 h 25 'mpv ~/Music/logon/ --shuffle --volume=50 --no-audio-display'",
         // "2 h 25 'echo hi'",
         // "0 v 45 'btop'"
         // "0 v 45 'sleep 1 && fetch && echo hi'"
@@ -42,7 +42,10 @@
       "workspace": 2,
       "initial_cmd": "newsboat",
       "active_pane": 0,
-      "panes": [],
+      "panes": [
+      	"0 v 66 'yazi'",
+      	"1 v 50 'fetch'"
+      ],
       "existing_action": "recreate"
     }
   ],

@@ -8,6 +8,9 @@ alias l='ls -CF'
 # Fetch/display aliases
 alias fetch="fastfetch"
 
+# Wifi shortcut
+alias wifi="impala"
+
 # Weather aliases
 alias stars="astroterm -r 3 -Ccum -i seattle -s 50 -t 2.5 -l 1.7"
 alias moon="curl \"wttr.in/moon?Fun\""

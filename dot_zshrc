@@ -169,22 +169,31 @@ alias obsidian="~/Apps/Obsidian &"
 alias gimp="~/Apps/GIMP &"
 alias notes="obsidian"
 alias ll="ls -ll"
+
 alias fetch="fastfetch"
 alias kitty="kitty 2>/dev/null"
+
 alias wifi-list="nmcli device wifi list"
 alias wifi-connection="nmcli connection show"
 alias wifi-connect="nmcli device wifi connect"
+
 alias keyboard-flash="sudo sleep 1; cd ~/pocket-reform/pocket-reform-keyboard-fw/pocket-hid; ./build.sh;echo \"flashing in 10s\";sleep 7; echo \"flashing in 3s\"; sleep 4;sudo picotool load build/pocket-hid.uf2 -f"
+
 alias clock="~/.cargo/bin/tenki --mode snow -l 1000 --wind disable"
 alias moon="curl \"wttr.in/moon?Fun\""
 alias weather="curl \"wttr.in/kirkland?FunQ2\""
+
 alias chezpush="~/bin/chezpush.sh"
-alias agent="cd ~/Agent && cursor-agent --resume"
-alias sagent="cd ~/Agent && sudo cursor-agent --resume"
-alias agent-new="cd ~/Agent && cursor-agent"
+
+alias agent="cd ~/Stellarium && cursor-agent --resume"
+alias agent-new="cd ~/Stellarium && cursor-agent"
+
+alias wifi="impala"
+alias vpn="sudo /home/wiz/.cargo/bin/vortix"
 
 # VPN aliases
 alias vpn-canada="echo -e 'TechnoWizard\nqdlTA#KP@&17' | sudo openvpn --config ~/.config/open-vpn/Canada\ -\ West.ovpn --auth-user-pass /dev/stdin"
+alias airplane="~/bin/vpn-airplane"
 
 
 if [[ $1 == eval ]]

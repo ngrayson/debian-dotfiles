@@ -1,0 +1,159 @@
+#!/bin/bash
+# vpn-airplane - Quick VPN setup for restrictive networks (airplanes, hotels)
+# Manages stunnel and launches vortix with stunnel-443 profile
+
+set -e
+
+# Configuration
+VORTIX_PROFILES="$HOME/.config/vortix/profiles"
+CALI_CONF="$VORTIX_PROFILES/stunnel-cali/United States - California.conf"
+CANADA_CONF="$VORTIX_PROFILES/stunnel-canada/Canada - West.conf"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+print_header() {
+    echo -e "${BLUE}================================${NC}"
+    echo -e "${BLUE}  Airplane VPN Setup${NC}"
+    echo -e "${BLUE}================================${NC}"
+    echo ""
+}
+
+check_stunnel_installed() {
+    if ! command -v stunnel &> /dev/null; then
+        echo -e "${RED}Error: stunnel not installed${NC}"
+        echo "Install with: sudo apt install stunnel4"
+        exit 1
+    fi
+}
+
+get_running_stunnel() {
+    # Check which stunnel config is running
+    local stunnel_cmd=$(ps aux | grep "stunnel.*\.conf" | grep -v grep | awk '{for(i=11;i<=NF;i++) printf "%s ", $i; print ""}')
+    
+    if [ -z "$stunnel_cmd" ]; then
+        echo "none"
+    elif echo "$stunnel_cmd" | grep -qi "cali\|California"; then
+        echo "california"
+    elif echo "$stunnel_cmd" | grep -qi "canada"; then
+        echo "canada"
+    else
+        echo "unknown"
+    fi
+}
+
+prompt_server_choice() {
+    echo -e "${YELLOW}Options:${NC}" >&2
+    echo "  1. Canada (West) - ca-west.frootvpn.com" >&2
+    echo "  2. California (US West Coast) - us-ca.frootvpn.com" >&2
+    echo "" >&2
+    read -p "Select server [1-2]: " choice >&2
+    echo "" >&2
+    
+    # Return only the server name on stdout
+    case "$choice" in
+        1|"")
+            echo "canada"
+            ;;
+        2)
+            echo "california"
+            ;;
+        *)
+            echo "canada"
+            ;;
+    esac
+}
+
+start_stunnel() {
+    local server=$1
+    local conf_file=""
+    
+    if [ "$server" = "california" ]; then
+        conf_file="$CALI_CONF"
+        echo -e "${GREEN}Starting stunnel for California...${NC}"
+    else
+        conf_file="$CANADA_CONF"
+        echo -e "${GREEN}Starting stunnel for Canada...${NC}"
+    fi
+    
+    if [ ! -f "$conf_file" ]; then
+        echo -e "${RED}Error: Config file not found:${NC}"
+        echo "  $conf_file"
+        echo ""
+        echo "Available configs:"
+        ls -d "$VORTIX_PROFILES"/*/*.conf 2>/dev/null | head -5
+        exit 1
+    fi
+    
+    # Start stunnel
+    sudo stunnel "$conf_file"
+    
+    # Give it a moment to start
+    sleep 1
+    
+    # Verify it's running
+    if ps aux | grep -q "stunnel.*\.conf"; then
+        echo -e "${GREEN}✓ Stunnel started successfully${NC}"
+    else
+        echo -e "${RED}✗ Failed to start stunnel${NC}"
+        exit 1
+    fi
+}
+
+stop_stunnel() {
+    echo -e "${YELLOW}Stopping existing stunnel...${NC}"
+    sudo killall stunnel 2>/dev/null || true
+    sleep 1
+}
+
+main() {
+    print_header
+    
+    # Check prerequisites
+    check_stunnel_installed
+    
+    # Request sudo access early (silently, before prompts)
+    # Only prompt if sudo access has expired
+    sudo -n true 2>/dev/null || sudo -v
+    
+    # Get desired server
+    desired_server=$(prompt_server_choice)
+    echo ""
+    
+    # Check current stunnel status
+    running_stunnel=$(get_running_stunnel)
+    
+    if [ "$running_stunnel" = "none" ]; then
+        echo -e "${BLUE}No stunnel currently running${NC}"
+        start_stunnel "$desired_server"
+    elif [ "$running_stunnel" = "$desired_server" ]; then
+        echo -e "${GREEN}✓ Correct stunnel already running ($desired_server)${NC}"
+        echo -e "${GREEN}✓ No restart needed${NC}"
+    else
+        echo -e "${YELLOW}Different server running, switching...${NC}"
+        echo ""
+        stop_stunnel
+        start_stunnel "$desired_server"
+    fi
+    
+    echo ""
+    echo -e "${BLUE}================================${NC}"
+    echo -e "${GREEN}✓ Stunnel ready!${NC}"
+    echo -e "${BLUE}================================${NC}"
+    echo ""
+    echo -e "Connect to: ${GREEN}Airplane Mode${NC}"
+    echo "Or use your assigned quick slot"
+    echo ""
+    read -p "Press Enter to launch vortix..."
+    echo ""
+    
+    # Launch vortix with full path (sudo needs full path)
+    sudo /home/wiz/.cargo/bin/vortix
+}
+
+# Run main function
+main

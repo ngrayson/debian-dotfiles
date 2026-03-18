@@ -40,7 +40,7 @@
       "monitor": 0,
       "session": "startup-right",
       "workspace": 2,
-      "initial_cmd": "newsboat",
+      "initial_cmd": "newsboat -r",
       "active_pane": 0,
       "panes": [
       	"0 v 66 'yazi'",

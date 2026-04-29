@@ -1,0 +1,30 @@
+@-moz-document url-prefix("about:"), url-prefix("chrome://"), url-prefix("moz-extension://") {
+  :root {
+    --sd-bg: #050c08 !important;
+    --sd-bg-alt: #02000C !important;
+    --sd-fg: #A0BDB8 !important;
+    --sd-accent: #32d8bc !important;
+    --sd-border: #145c4d !important;
+  }
+
+  html,
+  body,
+  page,
+  window {
+    background: var(--sd-bg) !important;
+    color: var(--sd-fg) !important;
+  }
+
+  a {
+    color: var(--sd-accent) !important;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    background: var(--sd-bg-alt) !important;
+    color: var(--sd-fg) !important;
+    border-color: var(--sd-border) !important;
+  }
+}

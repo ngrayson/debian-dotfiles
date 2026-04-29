@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+set -eu
+
+THEME_NAME="Seadream"
+CHEZ_FIREFOX_DIR="$HOME/.config/seadream/firefox"
+FIREFOX_ROOT="$HOME/.mozilla/firefox"
+
+printf "Applying GTK theme: %s\n" "$THEME_NAME"
+gsettings set org.gnome.desktop.interface gtk-theme "$THEME_NAME" || true
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" || true
+
+if [ -d "$FIREFOX_ROOT" ] && [ -d "$CHEZ_FIREFOX_DIR" ]; then
+  for profile in "$FIREFOX_ROOT"/*.default* "$FIREFOX_ROOT"/*.dev-edition-default*; do
+    [ -d "$profile" ] || continue
+    mkdir -p "$profile/chrome"
+    cp "$CHEZ_FIREFOX_DIR/userChrome.css" "$profile/chrome/userChrome.css"
+    cp "$CHEZ_FIREFOX_DIR/userContent.css" "$profile/chrome/userContent.css"
+    user_js="$profile/user.js"
+    touch "$user_js"
+    if ! rg -q "toolkit\\.legacyUserProfileCustomizations\\.stylesheets" "$user_js"; then
+      printf '%s\n' 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$user_js"
+    fi
+    printf "Updated Firefox profile: %s\n" "$profile"
+  done
+else
+  printf "Firefox profile root or Seadream Firefox CSS source not found, skipping Firefox apply.\n"
+fi
+
+printf "Seadream apply complete.\n"

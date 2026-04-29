@@ -1,0 +1,41 @@
+:root {
+  --sd-bg: #050c08 !important;
+  --sd-bg-alt: #02000C !important;
+  --sd-fg: #A0BDB8 !important;
+  --sd-accent: #32d8bc !important;
+  --sd-accent-alt: #08af8b !important;
+  --sd-border: #145c4d !important;
+}
+
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background: var(--sd-bg-alt) !important;
+  color: var(--sd-fg) !important;
+  border-color: var(--sd-border) !important;
+}
+
+#urlbar-background,
+.searchbar-textbox {
+  background: var(--sd-bg) !important;
+  color: var(--sd-fg) !important;
+  border: 1px solid var(--sd-border) !important;
+}
+
+.tab-background[selected="true"] {
+  background: var(--sd-accent) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--sd-bg-alt) !important;
+}
+
+.tabbrowser-tab:not([selected="true"]) .tab-label {
+  color: var(--sd-fg) !important;
+}
+
+#urlbar[open] #urlbar-background,
+#urlbar[focused] #urlbar-background {
+  border-color: var(--sd-accent) !important;
+}
